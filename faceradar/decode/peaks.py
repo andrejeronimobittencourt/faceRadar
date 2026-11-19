@@ -91,7 +91,7 @@ def extract_faces(
     return []
 
   scores = heat[0, 0, ys, xs]
-  order = torch.argsort(scores, descending=True)[: params.max_faces]
+  order = torch.argsort(scores, descending=True)
   ys, xs, scores = ys[order], xs[order], scores[order]
   size = size_map.detach().float().cpu()
   offset = offset_map.detach().float().cpu()

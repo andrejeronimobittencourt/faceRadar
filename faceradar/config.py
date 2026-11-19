@@ -54,12 +54,11 @@ class TrainingConfig:
 
 @dataclass(frozen=True)
 class DecodeParams:
-  """Peak decode settings: confidence floor, local-max kernel, IoU NMS, cap."""
+  """Peak decode settings: confidence floor, local-max kernel, IoU NMS."""
 
   conf_threshold: float = 0.3
   peak_kernel: int = 3
   nms_iou: float = 0.4
-  max_faces: int = 200
 
   def __post_init__(self) -> None:
     if not 0.0 < self.conf_threshold < 1.0:
@@ -68,5 +67,3 @@ class DecodeParams:
       raise ValueError(f'peak_kernel must be a positive odd number, got {self.peak_kernel}')
     if not 0.0 < self.nms_iou <= 1.0:
       raise ValueError(f'nms_iou must be in (0, 1], got {self.nms_iou}')
-    if self.max_faces < 1:
-      raise ValueError(f'max_faces must be >= 1, got {self.max_faces}')
